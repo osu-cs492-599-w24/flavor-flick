@@ -1,4 +1,4 @@
-package edu.oregonstate.cs492.assignment4.ui
+package edu.oregonstate.cs492.finalProject.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -14,7 +14,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.appbar.MaterialToolbar
-import edu.oregonstate.cs492.assignment4.R
+import edu.oregonstate.cs492.finalProject.R
 
 /*
  * Often, we'll have sensitive values associated with our code, like API keys, that we'll want to

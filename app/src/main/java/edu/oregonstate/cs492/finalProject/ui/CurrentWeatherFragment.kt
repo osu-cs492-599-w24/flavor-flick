@@ -1,4 +1,4 @@
-package edu.oregonstate.cs492.assignment4.ui
+package edu.oregonstate.cs492.finalProject.ui
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -20,9 +20,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import edu.oregonstate.cs492.assignment4.R
-import edu.oregonstate.cs492.assignment4.data.ForecastPeriod
-import edu.oregonstate.cs492.assignment4.util.openWeatherEpochToDate
+import edu.oregonstate.cs492.finalProject.R
+import edu.oregonstate.cs492.finalProject.data.ForecastPeriod
+import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 
 /**
  * This fragment represents the "current weather" screen.

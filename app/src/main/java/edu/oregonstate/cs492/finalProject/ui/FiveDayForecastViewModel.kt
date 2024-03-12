@@ -1,12 +1,12 @@
-package edu.oregonstate.cs492.assignment4.ui
+package edu.oregonstate.cs492.finalProject.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import edu.oregonstate.cs492.assignment4.data.FiveDayForecast
-import edu.oregonstate.cs492.assignment4.data.FiveDayForecastRepository
-import edu.oregonstate.cs492.assignment4.data.OpenWeatherService
+import edu.oregonstate.cs492.finalProject.data.FiveDayForecast
+import edu.oregonstate.cs492.finalProject.data.FiveDayForecastRepository
+import edu.oregonstate.cs492.finalProject.data.OpenWeatherService
 import kotlinx.coroutines.launch
 
 /**

@@ -1,4 +1,4 @@
-package edu.oregonstate.cs492.assignment4.data
+package edu.oregonstate.cs492.finalProject.data
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass

@@ -1,4 +1,4 @@
-package edu.oregonstate.cs492.assignment4.ui
+package edu.oregonstate.cs492.finalProject.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +10,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import edu.oregonstate.cs492.assignment4.R
+import edu.oregonstate.cs492.finalProject.R
 
 /**
  * This fragment represents the "five-day forecast" screen.

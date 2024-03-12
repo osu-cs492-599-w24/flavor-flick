@@ -1,4 +1,4 @@
-package edu.oregonstate.cs492.assignment4.ui
+package edu.oregonstate.cs492.finalProject.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import edu.oregonstate.cs492.assignment4.R
-import edu.oregonstate.cs492.assignment4.data.FiveDayForecast
-import edu.oregonstate.cs492.assignment4.data.ForecastCity
-import edu.oregonstate.cs492.assignment4.data.ForecastPeriod
-import edu.oregonstate.cs492.assignment4.util.openWeatherEpochToDate
+import edu.oregonstate.cs492.finalProject.R
+import edu.oregonstate.cs492.finalProject.data.FiveDayForecast
+import edu.oregonstate.cs492.finalProject.data.ForecastCity
+import edu.oregonstate.cs492.finalProject.data.ForecastPeriod
+import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 
 class ForecastAdapter() : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     var forecastPeriods: List<ForecastPeriod> = listOf()
