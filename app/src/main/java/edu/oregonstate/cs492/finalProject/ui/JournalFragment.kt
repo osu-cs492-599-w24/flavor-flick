@@ -15,8 +15,8 @@ import edu.oregonstate.cs492.finalProject.R
 /**
  * This fragment represents the "five-day forecast" screen.
  */
-class FiveDayForecastFragment: Fragment(R.layout.fragment_five_day_forecast) {
-    private val viewModel: FiveDayForecastViewModel by viewModels()
+class JournalFragment: Fragment(R.layout.fragment_journal) {
+    private val viewModel: JournalViewModel by viewModels()
     private val forecastAdapter = ForecastAdapter()
 
     private lateinit var cityTV: TextView

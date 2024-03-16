@@ -3,29 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/current_weather">
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/current_weather"
-        android:label="@string/label_current_weather"
-        android:name="edu.oregonstate.cs492.finalProject.ui.CurrentWeatherFragment">
-        <action
-            android:id="@+id/navigate_to_five_day_forecast"
-            app:destination="@id/five_day_forecast"/>
-    </fragment>
+        android:id="@+id/home"
+        android:label="@string/label_home"
+        android:name="edu.oregonstate.cs492.assignment4.ui.CurrentWeatherFragment" />
 
     <fragment
-        android:id="@+id/five_day_forecast"
-        android:label="@string/label_five_day_forecast"
-        android:name="edu.oregonstate.cs492.finalProject.ui.FiveDayForecastFragment" />
+        android:id="@+id/camera"
+        android:label="@string/label_camera"
+        android:name="edu.oregonstate.cs492.assignment4.ui.SettingsFragment" />
 
     <fragment
-        android:id="@+id/settings"
-        android:label="@string/label_settings"
-        android:name="edu.oregonstate.cs492.finalProject.ui.SettingsFragment" />
+        android:id="@+id/journal"
+        android:label="@string/label_journal"
+        android:name="edu.oregonstate.cs492.assignment4.ui.FiveDayForecastFragment" />
 
-    <action
-        android:id="@+id/navigate_to_settings"
-        app:destination="@id/settings" />
 
 </navigation>

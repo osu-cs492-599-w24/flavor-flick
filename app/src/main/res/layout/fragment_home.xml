@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CurrentWeatherFragment">
+    tools:context=".ui.HomeFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -84,7 +84,6 @@
                 android:id="@+id/iv_wind_dir"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_navigation_24"
                 app:tint="?attr/colorOnBackground"
                 app:layout_constraintStart_toEndOf="@id/tv_wind"
                 app:layout_constraintTop_toTopOf="@id/tv_wind"

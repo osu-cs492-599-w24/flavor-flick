@@ -96,7 +96,7 @@ class FiveDayForecastRepository (
      */
     private fun shouldFetch(location: String?, units: String?): Boolean =
         cachedForecast == null
-        || location != currentLocation
-        || units != currentUnits
-        || (timeStamp + cacheMaxAge).hasPassedNow()
+                || location != currentLocation
+                || units != currentUnits
+                || (timeStamp + cacheMaxAge).hasPassedNow()
 }

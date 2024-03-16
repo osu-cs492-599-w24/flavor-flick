@@ -4,19 +4,11 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -27,8 +19,9 @@ import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 /**
  * This fragment represents the "current weather" screen.
  */
-class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
-    private val viewModel: CurrentWeatherViewModel by viewModels()
+class HomeFragment : Fragment(R.layout.fragment_home) {
+    private val viewModel: HomeViewModel by viewModels()
+
 
     private var currentWeather: ForecastPeriod? = null
 
@@ -107,34 +100,34 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
         /*
          * Set up a MenuProvider to provide and handle app bar actions for this fragment.
          */
-        val menuHost = requireActivity() as MenuHost
-        menuHost.addMenuProvider(
-            object : MenuProvider {
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.current_weather_menu, menu)
-                }
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        R.id.action_five_day_forecast -> {
-                            val directions = CurrentWeatherFragmentDirections.navigateToFiveDayForecast()
-                            findNavController().navigate(directions)
-                            true
-                        }
-                        R.id.action_share -> {
-                            if (currentWeather != null) {
-                                share(currentWeather!!)
-                            }
-                            true
-                        }
-                        else -> false
-                    }
-                }
-
-            },
-            viewLifecycleOwner,
-            Lifecycle.State.STARTED
-        )
+//        val menuHost = requireActivity() as MenuHost
+//        menuHost.addMenuProvider(
+//            object : MenuProvider {
+//                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+//                    menuInflater.inflate(R.menu.current_weather_menu, menu)
+//                }
+//
+//                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+//                    return when (menuItem.itemId) {
+//                        R.id.action_five_day_forecast -> {
+//                            val directions = CurrentWeatherFragmentDirections.navigateToFiveDayForecast()
+//                            findNavController().navigate(directions)
+//                            true
+//                        }
+//                        R.id.action_share -> {
+//                            if (currentWeather != null) {
+//                                share(currentWeather!!)
+//                            }
+//                            true
+//                        }
+//                        else -> false
+//                    }
+//                }
+//
+//            },
+//            viewLifecycleOwner,
+//            Lifecycle.State.STARTED
+//        )
     }
 
     override fun onResume() {
@@ -154,6 +147,10 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             getString(R.string.pref_units_default_value)
         )
         viewModel.loadCurrentWeather(city, units, getString(R.string.openweather_api_key))
+
+        val nonNullCity: String = city ?: ""
+
+//        val bookmarkedRepo = GitHubRepo(cityName = nonNullCity, timeStamp = System.currentTimeMillis())
     }
 
     /*
@@ -181,11 +178,11 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
          * Insert the text for the cloud cover, then add a cloud icon whose size is adapted to the
          * height of the text in the TextView.
          */
-        cloudsTV.text = getString(R.string.forecast_clouds, weather.cloudCover)
-        val cloudsIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_outline_cloud_24)
-        val cloudsIconSize = (cloudsTV.lineHeight * 0.75).toInt()
-        cloudsIcon?.setBounds(0, 0, cloudsIconSize, cloudsIconSize)
-        cloudsTV.setCompoundDrawables(cloudsIcon, null, null, null)
+//        cloudsTV.text = getString(R.string.forecast_clouds, weather.cloudCover)
+//        val cloudsIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_outline_cloud_24)
+//        val cloudsIconSize = (cloudsTV.lineHeight * 0.75).toInt()
+//        cloudsIcon?.setBounds(0, 0, cloudsIconSize, cloudsIconSize)
+//        cloudsTV.setCompoundDrawables(cloudsIcon, null, null, null)
 
         /*
          * Insert the text for the wind, then add a wind icon whose size is adapted to the height
@@ -196,10 +193,10 @@ class CurrentWeatherFragment : Fragment(R.layout.fragment_current_weather) {
             weather.windSpeed,
             ""
         )
-        val windIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_air_24)
+//        val windIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_air_24)
         val windIconSize = (windTV.lineHeight * 0.75).toInt()
-        windIcon?.setBounds(0, 0, windIconSize, windIconSize)
-        windTV.setCompoundDrawables(windIcon, null, null, null)
+//        windIcon?.setBounds(0, 0, windIconSize, windIconSize)
+//        windTV.setCompoundDrawables(windIcon, null, null, null)
 
         /*
          * Rotate the wind direction icon to indicate the direction of the wind.

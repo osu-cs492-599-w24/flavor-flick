@@ -96,7 +96,7 @@ class CurrentWeatherRepository (
      */
     private fun shouldFetch(location: String?, units: String?): Boolean =
         cachedWeather == null
-        || location != currentLocation
-        || units != currentUnits
-        || (timeStamp + cacheMaxAge).hasPassedNow()
+                || location != currentLocation
+                || units != currentUnits
+                || (timeStamp + cacheMaxAge).hasPassedNow()
 }
