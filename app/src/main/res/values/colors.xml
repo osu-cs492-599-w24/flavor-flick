@@ -67,6 +67,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="high_temp">#F44336</color>
-    <color name="low_temp">#03A9F4</color>
+    <color name="high_temp">#AC465E</color>
+    <color name="low_temp">#6D1429</color>
+
+    <color name="heart">#AC465E</color>
+    <color name="cross">#6D1429</color>
 </resources>

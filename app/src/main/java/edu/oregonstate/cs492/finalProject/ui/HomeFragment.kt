@@ -43,59 +43,59 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weatherInfoView = view.findViewById(R.id.weather_info)
-        loadingErrorTV = view.findViewById(R.id.tv_loading_error)
-        loadingIndicator = view.findViewById(R.id.loading_indicator)
-
-        iconIV = weatherInfoView.findViewById(R.id.iv_icon)
-        cityTV = weatherInfoView.findViewById(R.id.tv_city)
-        dateTV = weatherInfoView.findViewById(R.id.tv_date)
-        tempTV = weatherInfoView.findViewById(R.id.tv_temp)
-        cloudsTV = weatherInfoView.findViewById(R.id.tv_clouds)
-        windTV = weatherInfoView.findViewById(R.id.tv_wind)
-        windDirIV = weatherInfoView.findViewById(R.id.iv_wind_dir)
-        descriptionTV = weatherInfoView.findViewById(R.id.tv_description)
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
-        /*
-         * Set up an observer on the fetched weather data.  When new data arrives, bind it into
-         * the UI.
-         */
-        viewModel.weather.observe(viewLifecycleOwner) { weather ->
-            if (weather != null) {
-                bind(weather)
-                weatherInfoView.visibility = View.VISIBLE
-                currentWeather = weather
-            }
-        }
-
-        /*
-         * Set up an observer on the error associated with the current API call.  If the error is
-         * not null, display the error that occurred in the UI.
-         */
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            if (error != null) {
-                loadingErrorTV.text = getString(R.string.loading_error, error.message)
-                loadingErrorTV.visibility = View.VISIBLE
-                Log.e(tag, "Error fetching forecast: ${error.message}")
-                error.printStackTrace()
-            }
-        }
+//        weatherInfoView = view.findViewById(R.id.weather_info)
+//        loadingErrorTV = view.findViewById(R.id.tv_loading_error)
+//        loadingIndicator = view.findViewById(R.id.loading_indicator)
+//
+//        iconIV = weatherInfoView.findViewById(R.id.iv_icon)
+//        cityTV = weatherInfoView.findViewById(R.id.tv_city)
+//        dateTV = weatherInfoView.findViewById(R.id.tv_date)
+//        tempTV = weatherInfoView.findViewById(R.id.tv_temp)
+//        cloudsTV = weatherInfoView.findViewById(R.id.tv_clouds)
+//        windTV = weatherInfoView.findViewById(R.id.tv_wind)
+//        windDirIV = weatherInfoView.findViewById(R.id.iv_wind_dir)
+//        descriptionTV = weatherInfoView.findViewById(R.id.tv_description)
+//
+//        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+//
+//        /*
+//         * Set up an observer on the fetched weather data.  When new data arrives, bind it into
+//         * the UI.
+//         */
+//        viewModel.weather.observe(viewLifecycleOwner) { weather ->
+//            if (weather != null) {
+//                bind(weather)
+//                weatherInfoView.visibility = View.VISIBLE
+//                currentWeather = weather
+//            }
+//        }
+//
+//        /*
+//         * Set up an observer on the error associated with the current API call.  If the error is
+//         * not null, display the error that occurred in the UI.
+//         */
+//        viewModel.error.observe(viewLifecycleOwner) { error ->
+//            if (error != null) {
+//                loadingErrorTV.text = getString(R.string.loading_error, error.message)
+//                loadingErrorTV.visibility = View.VISIBLE
+//                Log.e(tag, "Error fetching forecast: ${error.message}")
+//                error.printStackTrace()
+//            }
+//        }
 
         /*
          * Set up an observer on the loading status of the API query.  Display the correct UI
          * elements based on the current loading status.
          */
-        viewModel.loading.observe(viewLifecycleOwner) { loading ->
-            if (loading) {
-                loadingIndicator.visibility = View.VISIBLE
-                loadingErrorTV.visibility = View.INVISIBLE
-                weatherInfoView.visibility = View.INVISIBLE
-            } else {
-                loadingIndicator.visibility = View.INVISIBLE
-            }
-        }
+//        viewModel.loading.observe(viewLifecycleOwner) { loading ->
+//            if (loading) {
+//                loadingIndicator.visibility = View.VISIBLE
+//                loadingErrorTV.visibility = View.INVISIBLE
+//                weatherInfoView.visibility = View.INVISIBLE
+//            } else {
+//                loadingIndicator.visibility = View.INVISIBLE
+//            }
+//        }
 
         /*
          * Set up a MenuProvider to provide and handle app bar actions for this fragment.
@@ -141,14 +141,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
          * Here, the OpenWeather API key is taken from the app's string resources.  See the
          * comment at the top of the main activity class to see how to make this work correctly.
          */
-        val city = prefs.getString(getString(R.string.pref_city_key), "Corvallis,OR,US")
-        val units = prefs.getString(
-            getString(R.string.pref_units_key),
-            getString(R.string.pref_units_default_value)
-        )
-        viewModel.loadCurrentWeather(city, units, getString(R.string.openweather_api_key))
-
-        val nonNullCity: String = city ?: ""
+//        val city = prefs.getString(getString(R.string.pref_city_key), "Corvallis,OR,US")
+//        val units = prefs.getString(
+//            getString(R.string.pref_units_key),
+//            getString(R.string.pref_units_default_value)
+//        )
+//        viewModel.loadCurrentWeather(city, units, getString(R.string.openweather_api_key))
+//
+//        val nonNullCity: String = city ?: ""
 
 //        val bookmarkedRepo = GitHubRepo(cityName = nonNullCity, timeStamp = System.currentTimeMillis())
     }
@@ -157,22 +157,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
      * This function binds weather data from a ForecastPeriod object into the UI for this fragment.
      */
     private fun bind(weather: ForecastPeriod) {
-        Glide.with(this)
-            .load(weather.iconUrl)
-            .into(requireView().findViewById(R.id.iv_icon))
+//        Glide.with(this)
+//            .load(weather.iconUrl)
+//            .into(requireView().findViewById(R.id.iv_icon))
 
-        val city = prefs.getString(getString(R.string.pref_city_key), "Corvallis,OR,US")
-        cityTV.text = city
-
-        /*
-         * Set the date text, adjusting based on timezone info available in the weather data.
-         */
-        dateTV.text = getString(
-            R.string.forecast_date_time,
-            openWeatherEpochToDate(weather.epoch, weather.tzOffsetSec)
-        )
-
-        tempTV.text = getString(R.string.forecast_temp, weather.temp)
+//        val city = prefs.getString(getString(R.string.pref_city_key), "Corvallis,OR,US")
+//        cityTV.text = city
+//
+//        /*
+//         * Set the date text, adjusting based on timezone info available in the weather data.
+//         */
+//        dateTV.text = getString(
+//            R.string.forecast_date_time,
+//            openWeatherEpochToDate(weather.epoch, weather.tzOffsetSec)
+//        )
+//
+//        tempTV.text = getString(R.string.forecast_temp, weather.temp)
 
         /*
          * Insert the text for the cloud cover, then add a cloud icon whose size is adapted to the
@@ -188,22 +188,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
          * Insert the text for the wind, then add a wind icon whose size is adapted to the height
          * of the text in the TextView.
          */
-        windTV.text = getString(
-            R.string.forecast_wind,
-            weather.windSpeed,
-            ""
-        )
-//        val windIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_air_24)
-        val windIconSize = (windTV.lineHeight * 0.75).toInt()
-//        windIcon?.setBounds(0, 0, windIconSize, windIconSize)
-//        windTV.setCompoundDrawables(windIcon, null, null, null)
-
-        /*
-         * Rotate the wind direction icon to indicate the direction of the wind.
-         */
-        windDirIV.rotation = weather.windDirDeg.toFloat()
-
-        descriptionTV.text = weather.description
+//        windTV.text = getString(
+//            R.string.forecast_wind,
+//            weather.windSpeed,
+//            ""
+//        )
+////        val windIcon = AppCompatResources.getDrawable(requireContext(), R.drawable.ic_baseline_air_24)
+//        val windIconSize = (windTV.lineHeight * 0.75).toInt()
+////        windIcon?.setBounds(0, 0, windIconSize, windIconSize)
+////        windTV.setCompoundDrawables(windIcon, null, null, null)
+//
+//        /*
+//         * Rotate the wind direction icon to indicate the direction of the wind.
+//         */
+//        windDirIV.rotation = weather.windDirDeg.toFloat()
+//
+//        descriptionTV.text = weather.description
     }
 
     /*
