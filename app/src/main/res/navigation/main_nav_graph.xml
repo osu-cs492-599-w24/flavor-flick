@@ -8,17 +8,17 @@
     <fragment
         android:id="@+id/home"
         android:label="@string/label_home"
-        android:name="edu.oregonstate.cs492.assignment4.ui.CurrentWeatherFragment" />
+        android:name="edu.oregonstate.cs492.finalProject.ui.HomeFragment" />
 
     <fragment
         android:id="@+id/camera"
         android:label="@string/label_camera"
-        android:name="edu.oregonstate.cs492.assignment4.ui.SettingsFragment" />
+        android:name="edu.oregonstate.cs492.finalProject.ui.CameraFragment" />
 
     <fragment
         android:id="@+id/journal"
         android:label="@string/label_journal"
-        android:name="edu.oregonstate.cs492.assignment4.ui.FiveDayForecastFragment" />
+        android:name="edu.oregonstate.cs492.finalProject.ui.JournalFragment" />
 
 
 </navigation>
