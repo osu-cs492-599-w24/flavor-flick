@@ -23,7 +23,7 @@ android {
          * the name "openweather_api_key".  In other words, this will make the API key available
          * in the Kotlin code via `R.string.openweather_api_key`.
          *
-         * To make this work, you should follow the instructions in the comment at the top of
+         * To make this work, you should follow the area in the comment at the top of
          * MainActivity.kt.
          */
         resValue("string", "openweather_api_key", properties["OPENWEATHER_API_KEY"]?.toString() ?: "")

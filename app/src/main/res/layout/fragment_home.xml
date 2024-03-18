@@ -5,57 +5,9 @@
     android:orientation="vertical"
     android:gravity="center_horizontal">
 
-    <!-- FrameLayout to overlay the ImageView with rounded square background -->
-    <FrameLayout
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="16dp">
-
-        <!-- photo -->
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/example_food_image"
-            android:scaleType="centerCrop" />
-
-        <!-- border -->
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/rounded_square_background"
-            android:scaleType="centerCrop" />
-
-    </FrameLayout>
-
-    <!-- cross & heart -->
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_recipe_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <!-- x icon -->
-        <ImageView
-            android:id="@+id/imageViewCross"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="100dp"
-            android:src="@drawable/ic_cross"
-            android:tint="@color/cross" />
-
-        <!-- <3 icon -->
-        <ImageView
-            android:id="@+id/imageViewHeart"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_heart"
-            android:tint="@color/cross"
-            />
-
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

@@ -7,13 +7,19 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.snackbar.Snackbar
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.ForecastPeriod
+import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 
 /**
@@ -21,117 +27,67 @@ import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
+    private val homeAdapter = HomeAdapter()
 
 
-    private var currentWeather: ForecastPeriod? = null
-
-    private lateinit var prefs: SharedPreferences
-
-    private lateinit var weatherInfoView: View
-    private lateinit var loadingErrorTV: TextView
-    private lateinit var loadingIndicator: CircularProgressIndicator
-
-    private lateinit var iconIV: ImageView
-    private lateinit var cityTV: TextView
-    private lateinit var dateTV: TextView
-    private lateinit var tempTV: TextView
-    private lateinit var cloudsTV: TextView
-    private lateinit var windTV: TextView
-    private lateinit var windDirIV: ImageView
-    private lateinit var descriptionTV: TextView
+    private lateinit var recipeListRV: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        weatherInfoView = view.findViewById(R.id.weather_info)
-//        loadingErrorTV = view.findViewById(R.id.tv_loading_error)
-//        loadingIndicator = view.findViewById(R.id.loading_indicator)
-//
-//        iconIV = weatherInfoView.findViewById(R.id.iv_icon)
-//        cityTV = weatherInfoView.findViewById(R.id.tv_city)
-//        dateTV = weatherInfoView.findViewById(R.id.tv_date)
-//        tempTV = weatherInfoView.findViewById(R.id.tv_temp)
-//        cloudsTV = weatherInfoView.findViewById(R.id.tv_clouds)
-//        windTV = weatherInfoView.findViewById(R.id.tv_wind)
-//        windDirIV = weatherInfoView.findViewById(R.id.iv_wind_dir)
-//        descriptionTV = weatherInfoView.findViewById(R.id.tv_description)
-//
-//        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-//
-//        /*
-//         * Set up an observer on the fetched weather data.  When new data arrives, bind it into
-//         * the UI.
-//         */
-//        viewModel.weather.observe(viewLifecycleOwner) { weather ->
-//            if (weather != null) {
-//                bind(weather)
-//                weatherInfoView.visibility = View.VISIBLE
-//                currentWeather = weather
-//            }
-//        }
-//
-//        /*
-//         * Set up an observer on the error associated with the current API call.  If the error is
-//         * not null, display the error that occurred in the UI.
-//         */
-//        viewModel.error.observe(viewLifecycleOwner) { error ->
-//            if (error != null) {
-//                loadingErrorTV.text = getString(R.string.loading_error, error.message)
-//                loadingErrorTV.visibility = View.VISIBLE
-//                Log.e(tag, "Error fetching forecast: ${error.message}")
-//                error.printStackTrace()
-//            }
-//        }
+        // set up recyclerview
+        recipeListRV = view.findViewById(R.id.rv_recipe_list)
+        recipeListRV.layoutManager = LinearLayoutManager(requireContext())
+        recipeListRV.setHasFixedSize(true)
+        recipeListRV.adapter = homeAdapter
 
-        /*
-         * Set up an observer on the loading status of the API query.  Display the correct UI
-         * elements based on the current loading status.
-         */
-//        viewModel.loading.observe(viewLifecycleOwner) { loading ->
-//            if (loading) {
-//                loadingIndicator.visibility = View.VISIBLE
-//                loadingErrorTV.visibility = View.INVISIBLE
-//                weatherInfoView.visibility = View.INVISIBLE
-//            } else {
-//                loadingIndicator.visibility = View.INVISIBLE
-//            }
-//        }
+        // https://stackoverflow.com/questions/30531091/how-to-disable-recyclerview-scrolling
+        recipeListRV.layoutManager = object : LinearLayoutManager(requireContext()) { override fun canScrollVertically() = false }
 
-        /*
-         * Set up a MenuProvider to provide and handle app bar actions for this fragment.
-         */
-//        val menuHost = requireActivity() as MenuHost
-//        menuHost.addMenuProvider(
-//            object : MenuProvider {
-//                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-//                    menuInflater.inflate(R.menu.current_weather_menu, menu)
-//                }
-//
-//                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-//                    return when (menuItem.itemId) {
-//                        R.id.action_five_day_forecast -> {
-//                            val directions = CurrentWeatherFragmentDirections.navigateToFiveDayForecast()
-//                            findNavController().navigate(directions)
-//                            true
-//                        }
-//                        R.id.action_share -> {
-//                            if (currentWeather != null) {
-//                                share(currentWeather!!)
-//                            }
-//                            true
-//                        }
-//                        else -> false
-//                    }
-//                }
-//
-//            },
-//            viewLifecycleOwner,
-//            Lifecycle.State.STARTED
-//        )
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.absoluteAdapterPosition
+                val deletedRecipe = homeAdapter.deleteRecipe(position)
+//                val snackbar = Snackbar.make(
+//                    coordinator,
+//                    "Deleted: ${deletedToDo.text}",
+//                    Snackbar.LENGTH_LONG
+//                )
+//                snackbar.show()
+            }
+
+        }
+
+        homeAdapter.createRecipe(
+            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+        )
+
+        homeAdapter.createRecipe(
+            RecipeItem("Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+        )
+
+        homeAdapter.createRecipe(
+            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+        )
+
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recipeListRV)
+
+
     }
 
-    override fun onResume() {
-        super.onResume()
+//    override fun onResume() {
+//        super.onResume()
 
         /*
          * Trigger loading the weather data as soon as the fragment resumes.  Doing this in
@@ -151,12 +107,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        val nonNullCity: String = city ?: ""
 
 //        val bookmarkedRepo = GitHubRepo(cityName = nonNullCity, timeStamp = System.currentTimeMillis())
-    }
+//    }
 
     /*
      * This function binds weather data from a ForecastPeriod object into the UI for this fragment.
      */
-    private fun bind(weather: ForecastPeriod) {
+//    private fun bind(weather: ForecastPeriod) {
 //        Glide.with(this)
 //            .load(weather.iconUrl)
 //            .into(requireView().findViewById(R.id.iv_icon))
@@ -204,23 +160,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        windDirIV.rotation = weather.windDirDeg.toFloat()
 //
 //        descriptionTV.text = weather.description
-    }
-
-    /*
-     * Share the current weather using the Android Sharesheet.
-     */
-    private fun share(weather: ForecastPeriod) {
-        val shareText = getString(
-            R.string.share_weather_text,
-            prefs.getString(getString(R.string.pref_city_key), "Corvallis,OR,US"),
-            getString(R.string.forecast_temp, weather.temp),
-            weather.description
-        )
-        val intent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, shareText)
-            type = "text/plain"
-        }
-        startActivity(Intent.createChooser(intent, null))
-    }
 }
+
