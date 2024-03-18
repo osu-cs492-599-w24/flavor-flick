@@ -11,7 +11,13 @@
     <string name="forecast_wind">%1$d%2$s</string>
     <string name="forecast_date_time">%1$tb %1$te, %1$tl:%1$tM %1$tp</string>
 
-    <string name="label_home">Home</string>
+    <string name="recipe_name">%1$s</string>
+    <string name="recipe_category">%1$s</string>
+    <string name="recipe_area">%1$s</string>
+    <string name="recipe_youtube">%1$s</string>
+    <string name="recipe_source">%1$s</string>
+
+    <string name="label_home">FlavorFlick</string>
     <string name="label_camera">Camera</string>
     <string name="label_journal">Journal</string>
 
@@ -20,6 +26,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="share_weather_text">Current weather for %1$s: %2$s, %3$s</string>
+
+
 
     <!--
       - Preferences strings
