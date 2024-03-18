@@ -29,11 +29,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
     private val homeAdapter = HomeAdapter()
 
-
+    private lateinit var coordinatorLayout: View
     private lateinit var recipeListRV: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // ChatGPT
+        coordinatorLayout = requireActivity().findViewById(R.id.coordinator_layout)
 
         // set up recyclerview
         recipeListRV = view.findViewById(R.id.rv_recipe_list)
@@ -58,25 +61,43 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.absoluteAdapterPosition
-                val deletedRecipe = homeAdapter.deleteRecipe(position)
-//                val snackbar = Snackbar.make(
-//                    coordinator,
-//                    "Deleted: ${deletedToDo.text}",
-//                    Snackbar.LENGTH_LONG
-//                )
-//                snackbar.show()
+                if (direction == ItemTouchHelper.LEFT){
+                    val deletedRecipe = homeAdapter.deleteRecipe(position)
+                    val snackbar = Snackbar.make(
+                        coordinatorLayout,
+                        "Disliked: ${deletedRecipe.strMeal}",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.show()
+                }
+                else if (direction == ItemTouchHelper.RIGHT){
+                    val deletedRecipe = homeAdapter.deleteRecipe(position)
+                    val snackbar = Snackbar.make(
+                        coordinatorLayout,
+                        "Liked: ${deletedRecipe.strMeal}",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.show()
+                }
+
+
             }
 
         }
 
+        // Test Items
         homeAdapter.createRecipe(
             RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
         )
-
         homeAdapter.createRecipe(
             RecipeItem("Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
         )
-
+        homeAdapter.createRecipe(
+            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+        )
+        homeAdapter.createRecipe(
+            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+        )
         homeAdapter.createRecipe(
             RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
         )
