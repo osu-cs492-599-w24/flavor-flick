@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import edu.oregonstate.cs492.finalProject.R
 
-class JournalFragment : Fragment(R.layout.fragment_journal) {
+class JournalFragment : Fragment(R.layout.add_journal_entries) {
     private val viewModel: JournalViewModel by viewModels()
 
     private lateinit var journalEntryEditText: EditText

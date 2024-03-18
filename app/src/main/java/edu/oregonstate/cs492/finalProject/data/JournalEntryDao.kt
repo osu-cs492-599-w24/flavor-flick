@@ -12,9 +12,8 @@ interface JournalEntryDao {
     suspend fun write(journalEntry: JournalEntry)
 
     @Query("SELECT title FROM JournalEntry")
-    fun getTitle(): Flow<List<JournalEntry>>
+    fun getTitle(): Flow<List<String>>
 
     @Query("SELECT entryText FROM JournalEntry")
-    fun getEntry(): Flow<List<JournalEntry>>
-
+    fun getEntry(): Flow<List<String>>
 }
