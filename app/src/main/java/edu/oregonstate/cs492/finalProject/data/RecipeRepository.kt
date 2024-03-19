@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.data
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -28,8 +29,7 @@ class RecipeRepository(
                 if (response.isSuccessful) {
                     val meals = response.body()?.meals
                     if (!meals.isNullOrEmpty()) {
-                        Result.success(meals[0])
-                        // Assuming the API returns only one random meal (which it does)
+                        Result.success(meals[0]) // Assuming the API returns only one random meal (which it does)
                     } else {
                         Result.failure(Exception("No recipe found"))
                     }

@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     fun createRecipe(recipeItem: RecipeItem){
         recipeList.add(0, recipeItem)
         notifyItemInserted(0)
+        Log.d("HomeAdapter", "Added recipe- there are now ${recipeList.size} items")
     }
 
     fun deleteRecipe(position: Int): RecipeItem {
