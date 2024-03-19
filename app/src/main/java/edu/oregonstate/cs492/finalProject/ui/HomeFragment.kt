@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import edu.oregonstate.cs492.finalProject.R
+import edu.oregonstate.cs492.finalProject.data.RecipeInfo
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 import kotlinx.coroutines.launch
@@ -29,6 +30,8 @@ import kotlinx.coroutines.runBlocking
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
+    private val viewModelz: RecipeInfoViewModel by viewModels()
+
 
     // Initialize HomeAdapter (with no recipes- it's empty for now)
     private var homeAdapter = HomeAdapter()
@@ -38,6 +41,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialize RecyclerView and adapter
+        homeAdapter = HomeAdapter()
+        recipeListRV = view.findViewById(R.id.rv_recipe_list)
+        recipeListRV.layoutManager = LinearLayoutManager(requireContext())
+        recipeListRV.adapter = homeAdapter
+
+        // Observe changes from the database and update the UI
+        viewModelz.savedRecipes.observe(viewLifecycleOwner) { recipes ->
+//            homeAdapter.updateRecipes(recipes)
+        }
 
         // Initialize HomeAdapter again with 5 initial recipes fetched from the API
         lifecycleScope.launch {
@@ -84,18 +98,39 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     snackbar.show()
                 }
                 else if (direction == ItemTouchHelper.RIGHT){
-                    val deletedRecipe = homeAdapter.deleteRecipe(position)
-                    viewModel.fetchNewRecipe()
+                    val recipe = homeAdapter.recipeList[position] // Get the swiped recipe
+                    val recipeName = recipe.name
+                    val recipeImage = recipe.image
+                    val recipeCategory = recipe.category
+                    val recipeRegion = recipe.region
+                    val recipeVideoLink = recipe.videoLink
+                    val recipeRecipeLink = recipe.recipeLink
 
+                    // Add all recipe details to the database
+                    viewModelz.addNewRecipe(
+                        recipeName,
+                        recipeImage,
+                        recipeCategory,
+                        recipeRegion,
+                        recipeVideoLink,
+                        recipeRecipeLink
+                    )
+
+                    // Notify the user with a Snackbar
                     val snackbar = Snackbar.make(
                         coordinatorLayout,
-                        "Liked: ${deletedRecipe.name}",
+                        "Recipe added to favorites: $recipeName",
                         Snackbar.LENGTH_LONG
                     )
+
+                    val deletedRecipe = homeAdapter.deleteRecipe(position)
+                    viewModel.fetchNewRecipe()
                     snackbar.show()
                 }
             }
         }
+
+
 
         /**
          * Ensure that when the recipe LiveData in HomeViewModel changes

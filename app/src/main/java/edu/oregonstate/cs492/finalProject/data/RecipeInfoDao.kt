@@ -1,0 +1,16 @@
+package edu.oregonstate.cs492.finalProject.data
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface RecipeInfoDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(recipe: RecipeInfo)
+
+    @Query("SELECT * FROM RecipeInfo")
+    fun getTitle(): Flow<List<RecipeInfo>>
+}
