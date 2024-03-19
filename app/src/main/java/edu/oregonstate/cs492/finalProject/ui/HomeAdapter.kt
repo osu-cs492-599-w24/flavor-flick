@@ -37,12 +37,12 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val mealTV: TextView = itemView.findViewById(R.id.tv_strMeal)
-        private val mealThumbIV: ImageView = itemView.findViewById(R.id.iv_strMealThumb)
-        private val categoryTV: TextView = itemView.findViewById(R.id.tv_strCategory)
-        private val areaTV: TextView = itemView.findViewById(R.id.tv_strarea)
-        private val youtubeTV: TextView = itemView.findViewById(R.id.tv_strYoutube)
-        private val sourceTV: TextView = itemView.findViewById(R.id.tv_strSource)
+        private val mealTV: TextView = itemView.findViewById(R.id.tv_name)
+        private val mealThumbIV: ImageView = itemView.findViewById(R.id.tv_image)
+        private val categoryTV: TextView = itemView.findViewById(R.id.tv_category)
+        private val areaTV: TextView = itemView.findViewById(R.id.tv_region)
+        private val youtubeTV: TextView = itemView.findViewById(R.id.tv_videoLink)
+        private val sourceTV: TextView = itemView.findViewById(R.id.tv_recipeLink)
 
         private lateinit var currentRandomRecipe: RecipeItem
 
