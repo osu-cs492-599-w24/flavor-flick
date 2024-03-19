@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,16 @@ import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 
-class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
-    val recipeList: MutableList<RecipeItem> = mutableListOf()
+class HomeAdapter(
+    private val initialRecipes: List<RecipeItem> = listOf()
+) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
+    val recipeList: MutableList<RecipeItem> = initialRecipes.toMutableList()
 
     fun createRecipe(recipeItem: RecipeItem){
         recipeList.add(0, recipeItem)
         notifyItemInserted(0)
+        Log.d("HomeAdapter", "Added recipe- there are now ${recipeList.size} items")
     }
 
     fun deleteRecipe(position: Int): RecipeItem {
@@ -36,13 +41,13 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         holder.bind(recipeList[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        private val mealTV: TextView = itemView.findViewById(R.id.tv_strMeal)
-        private val mealThumbIV: ImageView = itemView.findViewById(R.id.iv_strMealThumb)
-        private val categoryTV: TextView = itemView.findViewById(R.id.tv_strCategory)
-        private val areaTV: TextView = itemView.findViewById(R.id.tv_strarea)
-        private val youtubeTV: TextView = itemView.findViewById(R.id.tv_strYoutube)
-        private val sourceTV: TextView = itemView.findViewById(R.id.tv_strSource)
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val mealTV: TextView = itemView.findViewById(R.id.tv_name)
+        private val mealThumbIV: ImageView = itemView.findViewById(R.id.tv_image)
+        private val categoryTV: TextView = itemView.findViewById(R.id.tv_category)
+        private val areaTV: TextView = itemView.findViewById(R.id.tv_region)
+        private val youtubeTV: TextView = itemView.findViewById(R.id.tv_videoLink)
+        private val sourceTV: TextView = itemView.findViewById(R.id.tv_recipeLink)
 
         private lateinit var currentRandomRecipe: RecipeItem
 
@@ -51,20 +56,15 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
             val ctx = itemView.context
 
-            mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.strMeal)
-            categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.strCategory)
-            areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.strarea)
-            youtubeTV.text = ctx.getString(R.string.recipe_youtube, recipeItem.strYoutube)
-            sourceTV.text = ctx.getString(R.string.recipe_source, recipeItem.strSource)
+            mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.name)
+            categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.category)
+            areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.region)
+            youtubeTV.text = ctx.getString(R.string.recipe_youtube, recipeItem.videoLink)
+            sourceTV.text = ctx.getString(R.string.recipe_source, recipeItem.recipeLink)
 
             Glide.with(ctx)
-                .load(recipeItem.strMealThumb)
+                .load(recipeItem.image)
                 .into(mealThumbIV)
         }
-
-
-
     }
-
-
 }
