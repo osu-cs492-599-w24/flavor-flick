@@ -21,7 +21,7 @@ interface RecipeService {
      *   if the API call was successful.
      */
     @GET("random.php")
-    suspend fun getRandomRecipe(): Response<RecipeItem>
+    suspend fun getRandomRecipe(): Response<RecipeResponse>
 
     companion object {
         private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
@@ -32,7 +32,7 @@ interface RecipeService {
          * the MealDB API.
          */
         fun create(): RecipeService {
-            val moshi = Moshi.Builder().build()
+            val moshi = Moshi.Builder().build() // May need to add some adapter calls here
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(MoshiConverterFactory.create(moshi))
