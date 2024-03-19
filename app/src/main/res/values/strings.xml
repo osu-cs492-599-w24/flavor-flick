@@ -18,7 +18,7 @@
     <string name="recipe_source">%1$s</string>
 
     <string name="label_home">FlavorFlick</string>
-    <string name="label_camera">Camera</string>
+    <string name="label_recipe_list">Recipe List</string>
     <string name="label_journal">Journal</string>
 
     <string name="action_five_day_forecast">Five-Day Forecast</string>

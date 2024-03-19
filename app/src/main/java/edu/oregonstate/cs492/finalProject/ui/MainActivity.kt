@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
 
         appBarConfig = AppBarConfiguration(
-            setOf(R.id.home, R.id.camera, R.id.journal)
+            setOf(R.id.home, R.id.recipeList, R.id.journal)
         )
 
         val appBar: MaterialToolbar = findViewById(R.id.top_app_bar)

@@ -7,7 +7,7 @@ import edu.oregonstate.cs492.finalProject.R
 /**
  * This fragment represents a settings screen for the app.
  */
-class CameraFragment : PreferenceFragmentCompat() {
+class RecipeListFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
     }

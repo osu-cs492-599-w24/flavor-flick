@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_home" />
 
     <item
-        android:id="@+id/camera"
-        android:title="@string/label_camera"
-        android:icon="@drawable/ic_camera" />
+        android:id="@+id/recipeList"
+        android:title="@string/label_recipe_list"
+        android:icon="@drawable/ic_recipe_list" />
 
     <item
         android:id="@+id/journal"
