@@ -1,11 +1,13 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
@@ -51,20 +53,35 @@ class HomeAdapter(
 
         private lateinit var currentRandomRecipe: RecipeItem
 
-        fun bind(recipeItem: RecipeItem,){
-            currentRandomRecipe = recipeItem
-
+        fun bind(recipeItem: RecipeItem){
             val ctx = itemView.context
 
             mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.name)
             categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.category)
             areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.region)
-            youtubeTV.text = ctx.getString(R.string.recipe_youtube, recipeItem.videoLink)
-            sourceTV.text = ctx.getString(R.string.recipe_source, recipeItem.recipeLink)
+
+            // Setting YouTube Link text
+            youtubeTV.apply {
+                movementMethod = LinkMovementMethod.getInstance()
+                text = HtmlCompat.fromHtml(
+                    "<a href=\"${recipeItem.videoLink}\">YouTube Link</a>",
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+            }
+
+            // Setting YouTube Link text
+            sourceTV.apply {
+                movementMethod = LinkMovementMethod.getInstance()
+                text = HtmlCompat.fromHtml(
+                    "<a href=\"${recipeItem.recipeLink}\">Recipe Link</a>",
+                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                )
+            }
 
             Glide.with(ctx)
                 .load(recipeItem.image)
                 .into(mealThumbIV)
         }
+
     }
 }
