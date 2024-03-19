@@ -19,7 +19,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import edu.oregonstate.cs492.finalProject.R
-import edu.oregonstate.cs492.finalProject.data.ForecastPeriod
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 import kotlinx.coroutines.launch

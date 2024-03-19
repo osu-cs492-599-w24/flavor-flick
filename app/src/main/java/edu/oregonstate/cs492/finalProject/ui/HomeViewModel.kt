@@ -23,6 +23,7 @@ class HomeViewModel : ViewModel() {
      */
     private val _recipe = MutableLiveData<RecipeItem?>()
 
+
     /**
      * This LiveData provides the most recent recipe fetched from the API.
      * It is null if there are no recipes available.
