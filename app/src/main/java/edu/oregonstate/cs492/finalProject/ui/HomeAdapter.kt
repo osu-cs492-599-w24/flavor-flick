@@ -51,14 +51,14 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
             val ctx = itemView.context
 
-            mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.strMeal)
-            categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.strCategory)
-            areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.strarea)
-            youtubeTV.text = ctx.getString(R.string.recipe_youtube, recipeItem.strYoutube)
-            sourceTV.text = ctx.getString(R.string.recipe_source, recipeItem.strSource)
+            mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.name)
+            categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.category)
+            areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.region)
+            youtubeTV.text = ctx.getString(R.string.recipe_youtube, recipeItem.videoLink)
+            sourceTV.text = ctx.getString(R.string.recipe_source, recipeItem.recipeLink)
 
             Glide.with(ctx)
-                .load(recipeItem.strMealThumb)
+                .load(recipeItem.image)
                 .into(mealThumbIV)
         }
 

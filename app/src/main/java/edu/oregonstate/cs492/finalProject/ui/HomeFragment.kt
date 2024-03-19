@@ -65,7 +65,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     val snackbar = Snackbar.make(
                         coordinatorLayout,
-                        "Disliked: ${deletedRecipe.strMeal}",
+                        "Disliked: ${deletedRecipe.name}",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.show()
@@ -74,7 +74,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     val snackbar = Snackbar.make(
                         coordinatorLayout,
-                        "Liked: ${deletedRecipe.strMeal}",
+                        "Liked: ${deletedRecipe.name}",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.show()
