@@ -15,9 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import edu.oregonstate.cs492.finalProject.R
 
-class JournalFragment : Fragment(R.layout.fragment_journal) {
+class JournalFragment : Fragment(R.layout.add_journal_entries) {
     private val viewModel: JournalViewModel by viewModels()
-
+    private lateinit var journalEntryTitle: EditText
     private lateinit var journalEntryEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
@@ -25,6 +25,7 @@ class JournalFragment : Fragment(R.layout.fragment_journal) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        journalEntryTitle = view.findViewById(R.id.title_text_box)
         journalEntryEditText = view.findViewById(R.id.journal_text_box)
         saveButton = view.findViewById(R.id.save_button)
         cancelButton = view.findViewById(R.id.cancel_button)
@@ -45,12 +46,18 @@ class JournalFragment : Fragment(R.layout.fragment_journal) {
 
         saveButton.setOnClickListener {
             val journalEntry = journalEntryEditText.text.toString()
+            val journalTitle = journalEntryTitle.text.toString()
 //            implement way to save journal entry
+//            use database stuff that has been set up
 //            viewModel.saveJournalEntry(journalEntry)
+            journalEntryTitle.text.clear()
+            journalEntryTitle.clearFocus()
             journalEntryEditText.text.clear()
             journalEntryEditText.clearFocus()
         }
         cancelButton.setOnClickListener {
+            journalEntryTitle.text.clear()
+            journalEntryTitle.clearFocus()
             journalEntryEditText.text.clear()
             journalEntryEditText.clearFocus()
             saveButton.visibility = View.GONE

@@ -1,119 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.JournalFragment">
 
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.JournalFragment">
+    <Button
+        android:id="@+id/add_entry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#ebebeb"
+        android:text="Add Entry"
+        android:textColor="#000000"
+        android:textSize="15sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="8dp"
-        android:hint="Write journal entry here" >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/journal_text_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:padding="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="8dp">
 
-        <Button
-            android:id="@+id/cancel_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cancel"
-            android:backgroundTint="#b0b2b5" />
-
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-
-            android:text="Save" />
-    </LinearLayout>
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/journal_entries"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
-                android:id="@+id/tv_loading_error"
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Journal Entry Title"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/journal_entry_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Journal Entry Content"
+                android:textSize="16sp"/>
+
+            <ImageView
+                android:id="@+id/image_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textAppearance="?attr/textAppearanceBody1"
-                android:textColor="?attr/colorError"
-                android:visibility="invisible" />
+                android:layout_gravity="center_horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_marginTop="16dp"/>
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/loading_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:layout_gravity="center"
-                android:visibility="invisible" />
+        </LinearLayout>
 
-        </FrameLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
-
-<!--<LinearLayout-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="vertical"-->
-<!--    tools:context=".ui.JournalFragment">-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/tv_city"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textAppearance="?attr/textAppearanceHeadline5"-->
-<!--        android:padding="8dp"-->
-<!--        android:layout_marginStart="8dp"/>-->
-
-<!--    <FrameLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rv_forecast_list"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_loading_error"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:padding="16dp"-->
-<!--            android:textAppearance="?attr/textAppearanceBody1"-->
-<!--            android:textColor="?attr/colorError"-->
-<!--            android:visibility="invisible" />-->
-
-<!--        <com.google.android.material.progressindicator.CircularProgressIndicator-->
-<!--            android:id="@+id/loading_indicator"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:indeterminate="true"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:visibility="invisible" />-->
-
-<!--    </FrameLayout>-->
-
-<!--</LinearLayout>-->

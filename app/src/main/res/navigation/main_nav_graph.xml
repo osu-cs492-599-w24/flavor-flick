@@ -18,7 +18,17 @@
     <fragment
         android:id="@+id/journal"
         android:label="@string/label_journal"
-        android:name="edu.oregonstate.cs492.finalProject.ui.JournalFragment" />
+        android:name="edu.oregonstate.cs492.finalProject.ui.ViewEntryFragment" />
+
+    <fragment
+        android:id="@+id/journalFragment"
+        android:name="edu.oregonstate.cs492.finalProject.ui.JournalFragment"
+        android:label="Add Journal Entry">
+    </fragment>
+
+    <action
+        android:id="@+id/add_journalEntries"
+        app:destination="@id/journalFragment" />
 
 
 </navigation>
