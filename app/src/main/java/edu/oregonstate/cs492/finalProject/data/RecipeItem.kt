@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
- * This class is used to help parse the JSON recipe data returned by the TheMealDB API's
+ * This class is used to help parse the JSON recipe data returned by the MealDB API's
  * "Lookup a single random meal" endpoint.
  */
 @JsonClass(generateAdapter = true)
