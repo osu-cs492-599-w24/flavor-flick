@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.ForecastPeriod
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -28,13 +30,22 @@ import kotlinx.coroutines.runBlocking
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
-    private val homeAdapter = HomeAdapter()
+
+    // Initialize HomeAdapter (with no recipes- it's empty for now)
+    private var homeAdapter = HomeAdapter()
 
     private lateinit var coordinatorLayout: View
     private lateinit var recipeListRV: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialize HomeAdapter again with 5 initial recipes fetched from the API
+        lifecycleScope.launch {
+            val initialRecipes = viewModel.fetchInitialRecipes()
+            homeAdapter = HomeAdapter(initialRecipes)
+            recipeListRV.adapter = homeAdapter
+        }
 
         // ChatGPT
         coordinatorLayout = requireActivity().findViewById(R.id.coordinator_layout)
@@ -101,14 +112,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         /**
+         * NO LONGER NEEDED
+         * THIS COMMENT IS LEFT AS A DINOSAUR FOSSIL
+         *
          * Add a dummy recipe as the very first in the RecyclerView
          * Note: (it is hard to make this an API-random recipe, I couldn't (sob))
          * Note note: Could also make this a little info page about FlavorFlick
          *            that you can swipe away (because we don't have any info elsewhere)
          */
-        homeAdapter.createRecipe(
-            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
-        )
+//        homeAdapter.createRecipe(
+//            RecipeItem("Jamaican Beef Patties", "https://www.themealdb.com/images/media/meals/wsqqsw1515364068.jpg", "Beef", "Jamaican","https://www.youtube.com/watch?v=ypQjoiZiTac","https://www.thespruce.com/jamaican-beef-patties-recipe-2137762")
+//        )
 
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recipeListRV)
     }

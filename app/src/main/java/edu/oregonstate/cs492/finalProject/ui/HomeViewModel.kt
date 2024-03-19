@@ -67,4 +67,36 @@ class HomeViewModel : ViewModel() {
             }
         }
     }
+
+    /**
+     * This method triggers 5 new calls to fetch a random recipe from the API.
+     * It updates the public properties of this ViewModel class to reflect the current status
+     * of the API call.
+     * This method is called just once to fill the recipeList with a "buffer" in order
+     * to fully realize the ViewModel architecture
+     */
+    suspend fun fetchInitialRecipes(): List<RecipeItem> {
+        val recipes = mutableListOf<RecipeItem>()
+        /**
+         * NOTE: ChatGPT told me this is how to fetch 5 recipes asynchronously
+         *
+         * Launch a new coroutine to execute the API calls. The coroutine is tied to the
+         * lifecycle of this ViewModel using `viewModelScope`.
+         */
+        repeat(5) {
+            try {
+                val result = repository.getRandomRecipe()
+                if (result.isSuccess) {
+                    result.getOrNull()?.let { recipe ->
+                        recipes.add(recipe)
+                    }
+                } else {
+                    Log.e("HomeViewModel", "Error fetching recipe: ${result.exceptionOrNull()}")
+                }
+            } catch (e: Exception) {
+                Log.e("HomeViewModel", "Error fetching recipe", e)
+            }
+        }
+        return recipes
+    }
 }
