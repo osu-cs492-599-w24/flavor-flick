@@ -17,10 +17,12 @@ import edu.oregonstate.cs492.finalProject.R
 
 class JournalFragment : Fragment(R.layout.add_journal_entries) {
     private val viewModel: JournalViewModel by viewModels()
+    private lateinit var journalAdapter: JournalAdapter
     private lateinit var journalEntryTitle: EditText
     private lateinit var journalEntryEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
+    private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,6 +71,7 @@ class JournalFragment : Fragment(R.layout.add_journal_entries) {
         super.onResume()
     }
 }
+
 
 
 //package edu.oregonstate.cs492.finalProject.ui
