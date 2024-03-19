@@ -7,6 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 /**
+ * NOTE: Code adapted from lecture examples (so are the comments- they're really helpful!)
  * This is a Retrofit service interface encapsulating communication with the MealDB API.
  */
 interface RecipeService {

@@ -36,7 +36,7 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
         holder.bind(recipeList[position])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mealTV: TextView = itemView.findViewById(R.id.tv_name)
         private val mealThumbIV: ImageView = itemView.findViewById(R.id.tv_image)
         private val categoryTV: TextView = itemView.findViewById(R.id.tv_category)
@@ -61,10 +61,5 @@ class HomeAdapter() : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
                 .load(recipeItem.image)
                 .into(mealThumbIV)
         }
-
-
-
     }
-
-
 }

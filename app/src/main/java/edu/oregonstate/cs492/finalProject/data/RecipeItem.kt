@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 /**
+ * NOTE: Code adapted from lecture examples
  * This class is used to help parse the JSON recipe data returned by the MealDB API's
  * "Lookup a single random meal" endpoint.
  * This class represents a single recipe in the list of returned meals.

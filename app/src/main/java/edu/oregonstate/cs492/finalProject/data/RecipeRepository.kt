@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 /**
+ * NOTE: Code adapted from lecture examples
  * This class manages data operations associated with the MealDB random recipe API endpoint.
  */
 class RecipeRepository(
