@@ -90,12 +90,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     viewModel.fetchNewRecipe()
 
-                    val snackbar = Snackbar.make(
-                        coordinatorLayout,
-                        "Disliked: ${deletedRecipe.name}",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackbar.show()
+//                    val snackbar = Snackbar.make(
+//                        coordinatorLayout,
+//                        "Disliked: ${deletedRecipe.name}",
+//                        Snackbar.LENGTH_LONG
+//                    )
+//                    snackbar.show()
                 }
                 else if (direction == ItemTouchHelper.RIGHT){
                     val recipe = homeAdapter.recipeList[position] // Get the swiped recipe
@@ -116,15 +116,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         recipeRecipeLink
                     )
 
-                    val snackbar = Snackbar.make(
-                        coordinatorLayout,
-                        "Liked: $recipeName",
-                        Snackbar.LENGTH_LONG
-                    )
+//                    val snackbar = Snackbar.make(
+//                        coordinatorLayout,
+//                        "Liked: $recipeName",
+//                        Snackbar.LENGTH_LONG
+//                    )
 
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     viewModel.fetchNewRecipe()
-                    snackbar.show()
+//                    snackbar.show()
                 }
             }
         }
