@@ -26,7 +26,7 @@ object PDFGenerator {
 
     private const val PAGE_HEIGHT = 1120
     private const val PAGE_WIDTH = 792
-    private const val PERMISSION_CODE = 101
+    private const val MARGIN = 50F
 
     fun generateRecipePdfAndOpen(recipe: RecipeInfo, bitmap: Bitmap?, context: Context) {
         Log.d("PDFGenerator", "Generating PDF")
@@ -36,24 +36,38 @@ object PDFGenerator {
         val page = pdfDocument.startPage(pageInfo)
         val canvas = page.canvas
 
-        // Creating Paint objects for drawing text
+        // Text sizes/styles
         val titlePaint = Paint().apply {
-            textSize = 15F
+            textSize = 40F // Larger font size for titles
+            isFakeBoldText = true // Bold style for titles
             color = ContextCompat.getColor(context, R.color.black)
+            textAlign = Paint.Align.LEFT // Align text to the left
+        }
+
+        val textPaint = Paint().apply {
+            textSize = 30F // Medium font size for content
+            color = ContextCompat.getColor(context, R.color.black)
+            textAlign = Paint.Align.LEFT // Align text to the left
+        }
+
+        val smallTextPaint = Paint().apply {
+            textSize = 20F // Smaller font size for links
+            color = ContextCompat.getColor(context, R.color.black)
+            textAlign = Paint.Align.LEFT // Align text to the left
         }
 
         try {
-            // Drawing text on the canvas
-            canvas.drawText(recipe.title, 50F, 100F, titlePaint)
-            canvas.drawText(recipe.category, 50F, 120F, titlePaint)
-            canvas.drawText(recipe.region, 50F, 140F, titlePaint)
-            canvas.drawText(recipe.videoLink, 50F, 160F, titlePaint)
-            canvas.drawText(recipe.recipeLink, 50F, 180F, titlePaint)
+            // Text
+            drawTextWithWrapping(canvas, "Recipe: ${recipe.title}", titlePaint, 150F, MARGIN)
+            drawTextWithWrapping(canvas, "Category: ${recipe.category}", textPaint, 210F, MARGIN)
+            drawTextWithWrapping(canvas, "Region: ${recipe.region}", textPaint, 250F, MARGIN)
+            drawTextWithWrapping(canvas, "Video Link: ${recipe.videoLink}", smallTextPaint, 310F, MARGIN)
+            drawTextWithWrapping(canvas, "Recipe Link: ${recipe.recipeLink}", smallTextPaint, 340F, MARGIN)
 
-            // Scale down the bitmap to fit in the PDF
+            // Image
             bitmap?.let {
-                val scaledBitmap = Bitmap.createScaledBitmap(it, 120, 120, false)
-                canvas.drawBitmap(scaledBitmap, 50F, 200F, null)
+                val scaledBitmap = Bitmap.createScaledBitmap(it, 300, 300, false) // Larger image size
+                canvas.drawBitmap(scaledBitmap, MARGIN, 450F, null)
             }
 
             pdfDocument.finishPage(page)
@@ -86,6 +100,31 @@ object PDFGenerator {
         } finally {
             pdfDocument.close()
             Log.d("PDFGenerator", "PDF document closed")
+        }
+    }
+
+    private fun drawTextWithWrapping(canvas: Canvas, text: String, paint: Paint, startY: Float, margin: Float) {
+        val maxWidth = PAGE_WIDTH - 2 * margin
+        val lineHeight = -paint.ascent() + paint.descent() // Height of a single line of text
+        var remainingText = text
+
+        var y = startY
+        while (remainingText.isNotBlank()) {
+            val measuredWidth = paint.measureText(remainingText)
+            if (measuredWidth <= maxWidth) {
+                canvas.drawText(remainingText, margin, y, paint)
+                break
+            }
+
+            var lineBreakIndex = paint.breakText(remainingText, true, maxWidth, null)
+            if (lineBreakIndex <= 0) {
+                lineBreakIndex = 1
+            }
+
+            val line = remainingText.substring(0, lineBreakIndex)
+            canvas.drawText(line, margin, y, paint)
+            y += lineHeight
+            remainingText = remainingText.substring(lineBreakIndex).trim()
         }
     }
 }
