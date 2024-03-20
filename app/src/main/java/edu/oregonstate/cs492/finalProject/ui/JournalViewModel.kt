@@ -1,35 +1,34 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.oregonstate.cs492.finalProject.data.AppDatabase
+import edu.oregonstate.cs492.finalProject.data.JournalEntry
+import edu.oregonstate.cs492.finalProject.data.JournalRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 /**
- * This is a ViewModel class that holds 5-day/3-hour forecast data for the UI.
+ * This is a ViewModel class that holds user inputted journal entries and displays it
  */
-class JournalViewModel: ViewModel() {
-//    private val repository = FiveDayForecastRepository(OpenWeatherService.create())
-//
-//    /*
-//     * The most recent response from the OpenWeather 5-day/3-hour forecast API are stored in this
-//     * private property.  These results are exposed to the outside world in immutable form via the
-//     * public `forecast` property below.
-//     */
-//    private val _forecast = MutableLiveData<FiveDayForecast?>(null)
-//
-//    /**
-//     * This value provides the most recent response from the OpenWeather 5-day/3-hour forecast API.
-//     * It is null if there are no current results (e.g. in the case of an error).
-//     */
-//    val forecast: LiveData<FiveDayForecast?> = _forecast
+class JournalViewModel(application: Application) : AndroidViewModel(application){
+    private val repository: JournalRepository = JournalRepository(AppDatabase.getInstance(application).journalEntryDao())
 
-    /*
-     * The current error for the most recent API query is stored in this private property.  This
-     * error is exposed to the outside world in immutable form via the public `error` property
-     * below.
-     */
+    fun saveJournalEntry(title: String, entryText: String, image: String) {
+        viewModelScope.launch {
+            val journalEntry = JournalEntry(title, entryText, image)
+            repository.insert(journalEntry)
+        }
+    }
+
+    fun getAllEntries(): LiveData<List<JournalEntry>> {
+        return repository.allJournalEntries
+    }
+
     private val _error = MutableLiveData<Throwable?>(null)
 
     /**

@@ -13,6 +13,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import edu.oregonstate.cs492.finalProject.R
 
 class JournalFragment : Fragment(R.layout.add_journal_entries) {
@@ -22,7 +23,6 @@ class JournalFragment : Fragment(R.layout.add_journal_entries) {
     private lateinit var journalEntryEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
-    private lateinit var recyclerView: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,13 +49,13 @@ class JournalFragment : Fragment(R.layout.add_journal_entries) {
         saveButton.setOnClickListener {
             val journalEntry = journalEntryEditText.text.toString()
             val journalTitle = journalEntryTitle.text.toString()
-//            implement way to save journal entry
-//            use database stuff that has been set up
-//            viewModel.saveJournalEntry(journalEntry)
+            viewModel.saveJournalEntry(journalTitle, journalEntry, "")
             journalEntryTitle.text.clear()
             journalEntryTitle.clearFocus()
             journalEntryEditText.text.clear()
             journalEntryEditText.clearFocus()
+
+            findNavController().navigateUp()
         }
         cancelButton.setOnClickListener {
             journalEntryTitle.text.clear()

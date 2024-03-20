@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,4 +17,7 @@ interface JournalEntryDao {
 
     @Query("SELECT entryText FROM JournalEntry")
     fun getEntry(): Flow<List<String>>
+
+    @Query("SELECT * FROM JournalEntry")
+    fun getAllJournalEntries(): LiveData<List<JournalEntry>>
 }
