@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.JournalEntry
 
-class JournalAdapter(private val entries: List<JournalEntry>) :
+class JournalAdapter(private var entries: List<JournalEntry> = emptyList()) :
     RecyclerView.Adapter<JournalAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,6 +25,11 @@ class JournalAdapter(private val entries: List<JournalEntry>) :
 
     override fun getItemCount(): Int {
         return entries.size
+    }
+
+    fun updateEntries(newEntries: List<JournalEntry>) {
+        entries = newEntries
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
