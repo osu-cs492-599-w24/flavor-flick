@@ -1,15 +1,19 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import JournalAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.JournalEntry
+import kotlinx.coroutines.launch
 
 
 class ViewEntryFragment : Fragment(R.layout.fragment_journal) {
@@ -40,6 +44,15 @@ class ViewEntryFragment : Fragment(R.layout.fragment_journal) {
             val direction = ViewEntryFragmentDirections.addJournalEntries()
             findNavController().navigate(direction)
         }
+
+        journalAdapter.setOnDeleteClickListener(object : JournalAdapter.OnDeleteClickListener {
+            override fun onDeleteClick(entry: JournalEntry) {
+                viewModel.viewModelScope.launch {
+                    Log.d("Close Button 3", "Successfully clicked in onDeleteClick");
+                    viewModel.delete(entry)
+                }
+            }
+        })
     }
 
 }
