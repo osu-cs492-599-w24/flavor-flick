@@ -116,10 +116,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         recipeRecipeLink
                     )
 
-                    // Notify the user with a Snackbar
                     val snackbar = Snackbar.make(
                         coordinatorLayout,
-                        "Recipe added to favorites: $recipeName",
+                        "Liked: $recipeName",
                         Snackbar.LENGTH_LONG
                     )
 

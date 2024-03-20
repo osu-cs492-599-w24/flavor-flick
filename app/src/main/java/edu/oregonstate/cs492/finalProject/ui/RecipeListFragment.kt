@@ -28,9 +28,13 @@ class RecipeListFragment : Fragment() {
 
         // Assuming you have access to a ViewModel that provides the list of recipes
         viewModel.getAllEntries().observe(viewLifecycleOwner) { recipes ->
+            val reversedRecipes = recipes.reversed()
             val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            recyclerView.adapter = RecipeListAdapter(recipes)
+            recyclerView.adapter = RecipeListAdapter(reversedRecipes)
         }
+
+
     }
 }
