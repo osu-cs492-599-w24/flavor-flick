@@ -46,7 +46,7 @@ class RecipeListAdapter(
         private val youtubeTV: TextView = itemView.findViewById(R.id.tv_videoLink)
         private val sourceTV: TextView = itemView.findViewById(R.id.tv_recipeLink)
         private val generatePDFBtn: Button = itemView.findViewById(R.id.btnGeneratePDF)
-        private val deleteRecipeButton: Button = itemView.findViewById(R.id.recipe_delete_button)
+        private val deleteRecipeButton: ImageButton = itemView.findViewById(R.id.recipe_delete_button)
 
         init {
             deleteRecipeButton.setOnClickListener {
