@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,17 +27,22 @@ class RecipeListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Assuming you have access to a ViewModel that provides the list of recipes
+        val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
+        val noRecipesTextView: TextView = view.findViewById(R.id.no_recipes_text_view)
+
         viewModel.getAllEntries().observe(viewLifecycleOwner) { recipes ->
             val reversedRecipes = recipes.reversed()
-            val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view)
 
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
-            recyclerView.adapter = RecipeListAdapter(reversedRecipes)
+            if (reversedRecipes.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                noRecipesTextView.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                noRecipesTextView.visibility = View.GONE
+
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                recyclerView.adapter = RecipeListAdapter(reversedRecipes)
+            }
         }
-
-
     }
-
-
 }
