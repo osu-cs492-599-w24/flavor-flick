@@ -15,8 +15,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="310dp"
-            android:layout_height="600dp"
+            android:layout_width="330dp"
+            android:layout_height="610dp"
             android:layout_margin="24dp">
 
             <ImageView
@@ -33,11 +33,10 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceHeadline4"
                 android:layout_marginTop="30dp"
-                android:layout_marginStart="20dp"
                 android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/tv_image"
                 android:ellipsize="end"
-                android:maxLines="1" />
+                android:maxLines="2" />
 
             <!-- ChatGPT assisted with finding out autoLink-->
             <TextView
