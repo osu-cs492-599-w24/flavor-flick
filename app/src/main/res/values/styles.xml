@@ -13,4 +13,9 @@
     <style name="TextAppearance.WeatherApp.LowTempLarge" parent="TextAppearance.WeatherApp.LowTempSmall">
         <item name="android:textSize">32sp</item>
     </style>
+
+    <style name="MenuItemTextAppearance" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">50sp</item>
+    </style>
+
 </resources>

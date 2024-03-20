@@ -8,6 +8,8 @@
     <fragment
         android:id="@+id/home"
         android:label="@string/label_home"
+
+
         android:name="edu.oregonstate.cs492.finalProject.ui.HomeFragment" />
 
     <fragment

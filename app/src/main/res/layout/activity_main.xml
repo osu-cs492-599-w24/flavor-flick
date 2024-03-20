@@ -36,8 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            app:itemIconSize="@dimen/bottom_nav_icon_size"
+            app:backgroundTint="@color/md_theme_light_surfaceVariant"
             app:menu="@menu/main_menu"
-            app:labelVisibilityMode="unlabeled" />
+            app:labelVisibilityMode="unlabeled"
+            />
 
     </RelativeLayout>
 
