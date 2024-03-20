@@ -1,87 +1,86 @@
-package edu.oregonstate.cs492.finalProject.ui
-
+import android.content.Context
+import android.graphics.Bitmap
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
-import edu.oregonstate.cs492.finalProject.data.RecipeItem
+import edu.oregonstate.cs492.finalProject.data.RecipeInfo
+import retrofit2.http.Tag
 
 class RecipeListAdapter(
-    private val initialRecipes: List<RecipeItem> = listOf()
+    private val initialRecipes: List<RecipeInfo> = listOf()
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
-    val recipeList: MutableList<RecipeItem> = initialRecipes.toMutableList()
+    private val recipeList: MutableList<RecipeInfo> = initialRecipes.toMutableList()
 
-    fun createRecipe(recipeItem: RecipeItem){
-        recipeList.add(0, recipeItem)
-        notifyItemInserted(0)
-        Log.d("HomeAdapter", "Added recipe- there are now ${recipeList.size} items")
+    fun submitList(newList: List<RecipeInfo>) {
+        recipeList.clear()
+        recipeList.addAll(newList)
     }
 
-    fun deleteRecipe(position: Int): RecipeItem {
-        val recipeList = recipeList.removeAt(position)
-        notifyItemRemoved(position)
-        return recipeList
-    }
-
-    override fun getItemCount() = recipeList.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recipe_list_entry, parent, false)
-        return ViewHolder(view)
-    }
-
-    override fun onBindViewHolder(holder: RecipeListAdapter.ViewHolder, position: Int) {
-        holder.bind(recipeList[position])
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mealTV: TextView = itemView.findViewById(R.id.tv_name)
         private val mealThumbIV: ImageView = itemView.findViewById(R.id.tv_image)
         private val categoryTV: TextView = itemView.findViewById(R.id.tv_category)
         private val areaTV: TextView = itemView.findViewById(R.id.tv_region)
         private val youtubeTV: TextView = itemView.findViewById(R.id.tv_videoLink)
         private val sourceTV: TextView = itemView.findViewById(R.id.tv_recipeLink)
+        private val generatePDFBtn: Button = itemView.findViewById(R.id.btnGeneratePDF)
 
-        private lateinit var currentRandomRecipe: RecipeItem
-
-        fun bind(recipeItem: RecipeItem){
+        fun bind(recipeInfo: RecipeInfo) {
             val ctx = itemView.context
 
-            mealTV.text = ctx.getString(R.string.recipe_name, recipeItem.name)
-            categoryTV.text = ctx.getString(R.string.recipe_category, recipeItem.category)
-            areaTV.text = ctx.getString(R.string.recipe_area, recipeItem.region)
+            mealTV.text = recipeInfo.title
+            categoryTV.text = recipeInfo.category
+            areaTV.text = recipeInfo.region
 
             // Setting YouTube Link text
             youtubeTV.apply {
                 movementMethod = LinkMovementMethod.getInstance()
                 text = HtmlCompat.fromHtml(
-                    "<a href=\"${recipeItem.videoLink}\">YouTube Link</a>",
+                    "<a href=\"${recipeInfo.videoLink}\">YouTube Link</a>",
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 
-            // Setting YouTube Link text
+            // Setting Recipe Link text
             sourceTV.apply {
                 movementMethod = LinkMovementMethod.getInstance()
                 text = HtmlCompat.fromHtml(
-                    "<a href=\"${recipeItem.recipeLink}\">Recipe Link</a>",
+                    "<a href=\"${recipeInfo.recipeLink}\">Recipe Link</a>",
                     HtmlCompat.FROM_HTML_MODE_LEGACY
                 )
             }
 
             Glide.with(ctx)
-                .load(recipeItem.image)
+                .load(recipeInfo.image)
                 .into(mealThumbIV)
-        }
 
+            generatePDFBtn.setOnClickListener {
+                val bitmap = mealThumbIV.drawable.toBitmap()
+                PDFGenerator.generateRecipePdfAndOpen(recipeInfo, bitmap, ctx)
+            }
+        }
+    }
+
+    override fun getItemCount() = recipeList.size
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.recipe_list_entry, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(recipeList[position])
     }
 }

@@ -9,6 +9,7 @@ class JournalRepository(private val entryDao: JournalEntryDao) {
     val allEntries: Flow<List<String>> = entryDao.getEntry()
     val allJournalEntries: LiveData<List<JournalEntry>> = entryDao.getAllJournalEntries()
 
+
     suspend fun insert(entry: JournalEntry) {
         entryDao.write(entry)
     }
