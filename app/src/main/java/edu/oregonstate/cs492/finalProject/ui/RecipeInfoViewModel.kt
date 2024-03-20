@@ -22,6 +22,12 @@ class RecipeInfoViewModel(application: Application) : AndroidViewModel(applicati
     fun getAllEntries(): LiveData<List<RecipeInfo>> {
         return repository.getAllRecentRecipe()
     }
+
+    suspend fun deleteRecipe(recipe: RecipeInfo){
+        viewModelScope.launch{
+            repository.deleteRecipe(recipe)
+        }
+    }
     fun addNewRecipe(
         name: String,
         image: String,

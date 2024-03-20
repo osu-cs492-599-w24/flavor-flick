@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.graphics.drawable.toBitmap
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.RecipeInfo
+import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import retrofit2.http.Tag
 
 class RecipeListAdapter(
@@ -21,10 +23,19 @@ class RecipeListAdapter(
 ) : RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
     private val recipeList: MutableList<RecipeInfo> = initialRecipes.toMutableList()
+    private var deleteRecipeListener:  DeleteRecipeListener? = null
 
     fun submitList(newList: List<RecipeInfo>) {
         recipeList.clear()
         recipeList.addAll(newList)
+    }
+
+    interface DeleteRecipeListener{
+        fun deleteRecipe(entry: RecipeInfo)
+    }
+
+    fun setDeleteRecipeListener(listener: DeleteRecipeListener){
+        deleteRecipeListener = listener
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,6 +46,22 @@ class RecipeListAdapter(
         private val youtubeTV: TextView = itemView.findViewById(R.id.tv_videoLink)
         private val sourceTV: TextView = itemView.findViewById(R.id.tv_recipeLink)
         private val generatePDFBtn: Button = itemView.findViewById(R.id.btnGeneratePDF)
+        private val deleteRecipeButton: Button = itemView.findViewById(R.id.recipe_delete_button)
+
+        init {
+            deleteRecipeButton.setOnClickListener {
+                Log.d("Close Button", "Successfully clicked");
+                val position = absoluteAdapterPosition
+                Log.d("Close Button", "position: $position");
+                if (position != RecyclerView.NO_POSITION) {
+                    deleteRecipeListener?.deleteRecipe(recipeList[position])
+                    recipeList.removeAt(position)
+                    notifyItemRemoved(position)
+                    Log.d("Close Button 2", "Successfully clicked again");
+                }
+            }
+        }
+
 
         fun bind(recipeInfo: RecipeInfo) {
             val ctx = itemView.context
