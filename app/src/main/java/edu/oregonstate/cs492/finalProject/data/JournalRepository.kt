@@ -5,12 +5,14 @@ import kotlinx.coroutines.flow.Flow
 
 class JournalRepository(private val entryDao: JournalEntryDao) {
 
-    val allTitles: Flow<List<String>> = entryDao.getTitle()
-    val allEntries: Flow<List<String>> = entryDao.getEntry()
     val allJournalEntries: LiveData<List<JournalEntry>> = entryDao.getAllJournalEntries()
 
 
     suspend fun insert(entry: JournalEntry) {
         entryDao.write(entry)
+    }
+
+    suspend fun delete(entry: JournalEntry) {
+        entryDao.delete(entry)
     }
 }

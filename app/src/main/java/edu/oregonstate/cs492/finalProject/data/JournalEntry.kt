@@ -8,5 +8,4 @@ class JournalEntry(
     @PrimaryKey
     val title: String,
     val entryText: String,
-    val image: String
 )
