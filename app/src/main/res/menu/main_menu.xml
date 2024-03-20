@@ -1,21 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/home"
         android:title="@string/label_home"
-        android:icon="@drawable/ic_home" />
+        android:icon="@drawable/ic_home"/> <!-- Apply custom text appearance -->
 
     <item
         android:id="@+id/recipeList"
         android:title="@string/label_recipe_list"
-        android:icon="@drawable/ic_recipe_list" />
+        android:icon="@drawable/ic_recipe_list"/> <!-- Apply custom text appearance -->
 
     <item
         android:id="@+id/journal"
         android:title="@string/label_journal"
-        android:icon="@drawable/ic_journal" />
+        android:icon="@drawable/ic_journal"/> <!-- Apply custom text appearance -->
 
 </menu>
