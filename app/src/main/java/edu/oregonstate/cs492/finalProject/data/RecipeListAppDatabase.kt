@@ -1,6 +1,5 @@
 package edu.oregonstate.cs492.finalProject.data
 
-
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room

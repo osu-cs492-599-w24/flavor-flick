@@ -1,19 +1,13 @@
-import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
-import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.DocumentsContract
 import android.util.Log
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import edu.oregonstate.cs492.finalProject.R
@@ -39,21 +33,21 @@ object PDFGenerator {
         // Text sizes/styles
         val titlePaint = Paint().apply {
             textSize = 40F // Larger font size for titles
-            isFakeBoldText = true // Bold style for titles
+            isFakeBoldText = true
             color = ContextCompat.getColor(context, R.color.black)
-            textAlign = Paint.Align.LEFT // Align text to the left
+            textAlign = Paint.Align.LEFT
         }
 
         val textPaint = Paint().apply {
             textSize = 30F // Medium font size for content
             color = ContextCompat.getColor(context, R.color.black)
-            textAlign = Paint.Align.LEFT // Align text to the left
+            textAlign = Paint.Align.LEFT
         }
 
         val smallTextPaint = Paint().apply {
             textSize = 20F // Smaller font size for links
             color = ContextCompat.getColor(context, R.color.black)
-            textAlign = Paint.Align.LEFT // Align text to the left
+            textAlign = Paint.Align.LEFT
         }
 
         try {

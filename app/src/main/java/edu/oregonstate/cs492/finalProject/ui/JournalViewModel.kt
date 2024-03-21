@@ -4,12 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import edu.oregonstate.cs492.finalProject.data.AppDatabase
 import edu.oregonstate.cs492.finalProject.data.JournalEntry
 import edu.oregonstate.cs492.finalProject.data.JournalRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 /**

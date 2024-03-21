@@ -60,7 +60,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_category"
                 android:autoLink="web" />
 
-
             <TextView
                 android:id="@+id/tv_videoLink"
                 android:layout_width="match_parent"
@@ -70,7 +69,6 @@
                 android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/tv_region"
                 android:autoLink="none" />
-
 
             <TextView
                 android:id="@+id/tv_recipeLink"
@@ -82,7 +80,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_videoLink"
                 android:autoLink="none" />
 
-            <!-- x icon -->
+            <!-- thumbs down icon -->
             <ImageView
                 android:id="@+id/imageViewCross"
                 android:layout_width="80dp"
@@ -94,7 +92,7 @@
                 android:layout_marginStart="13dp"
                 android:layout_marginBottom="2dp" />
 
-            <!-- <3 icon -->
+            <!-- thumbs up icon -->
             <ImageView
                 android:id="@+id/imageViewHeart"
                 android:layout_width="80dp"

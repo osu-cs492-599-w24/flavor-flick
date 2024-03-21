@@ -1,14 +1,9 @@
 package edu.oregonstate.cs492.finalProject.ui
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuProvider
 import androidx.core.view.updatePadding
-import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -46,16 +41,12 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnApplyWindowInsetsListener { view, insets ->
             view.updatePadding(bottom = 0)
             insets
-
         }
-
-
 
     }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
-
 
 }

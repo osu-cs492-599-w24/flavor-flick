@@ -1,5 +1,3 @@
-import android.content.Context
-import android.graphics.Bitmap
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.RecipeInfo
-import edu.oregonstate.cs492.finalProject.data.RecipeItem
-import retrofit2.http.Tag
+
 
 class RecipeListAdapter(
     private val initialRecipes: List<RecipeInfo> = listOf()

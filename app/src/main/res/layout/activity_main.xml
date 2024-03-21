@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:minHeight="?attr/actionBarSize"
-            style="?attr/toolbarStyle"/>
+            style="?attr/toolbarStyle" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_fragment"
@@ -39,8 +39,7 @@
             app:itemIconSize="@dimen/bottom_nav_icon_size"
             app:backgroundTint="@color/md_theme_light_surfaceVariant"
             app:menu="@menu/main_menu"
-            app:labelVisibilityMode="unlabeled"
-            />
+            app:labelVisibilityMode="unlabeled" />
 
     </RelativeLayout>
 

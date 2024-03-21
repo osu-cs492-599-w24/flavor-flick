@@ -2,12 +2,10 @@ package edu.oregonstate.cs492.finalProject.ui
 
 import RecipeListAdapter
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -16,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.RecipeInfo
 import kotlinx.coroutines.launch
+
 
 class RecipeListFragment : Fragment() {
     private val viewModel: RecipeInfoViewModel by viewModels()

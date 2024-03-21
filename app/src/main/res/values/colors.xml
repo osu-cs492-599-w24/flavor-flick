@@ -64,16 +64,11 @@
     <color name="md_theme_dark_outlineVariant">#49454F</color>
     <color name="md_theme_dark_scrim">#000000</color>
 
+    <!--  FlavorFlick Colors  -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="high_temp">#AC465E</color>
-    <color name="low_temp">#6D1429</color>
-
     <color name="cross">#6D1429</color>
     <color name="pretty_pink">#b16d7e</color>
 
-    <!--    <color name="bottom_nav_background_color">#FF5722</color>-->
-<!--    <color name="bottom_nav_item_color">#FFFFFF</color> -->
 
 </resources>
