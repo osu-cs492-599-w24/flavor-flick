@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 /**
- * This fragment represents the "current weather" screen.
+ * This fragment represents the "home" screen.
  */
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
@@ -39,6 +39,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var coordinatorLayout: View
     private lateinit var recipeListRV: RecyclerView
+    private lateinit var loadingErrorTV: TextView
     private lateinit var loadingIndicator: ProgressBar
 
 
@@ -51,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recipeListRV.layoutManager = LinearLayoutManager(requireContext())
         recipeListRV.adapter = homeAdapter
 
+        loadingErrorTV = view.findViewById(R.id.tv_loading_error)
         loadingIndicator = view.findViewById(R.id.loading_indicator)
 
 
@@ -78,6 +80,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // https://stackoverflow.com/questions/30531091/how-to-disable-recyclerview-scrolling
         recipeListRV.layoutManager = object : LinearLayoutManager(requireContext()) { override fun canScrollVertically() = false }
 
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                // Log the error or handle it as needed
+                Log.e("HomeFragment", "Error: $error")
+            }
+        }
         val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
             0,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -92,16 +100,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.absoluteAdapterPosition
+
                 if (direction == ItemTouchHelper.LEFT){
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     viewModel.fetchNewRecipe()
 
-//                    val snackbar = Snackbar.make(
-//                        coordinatorLayout,
-//                        "Disliked: ${deletedRecipe.name}",
-//                        Snackbar.LENGTH_LONG
-//                    )
-//                    snackbar.show()
                 }
                 else if (direction == ItemTouchHelper.RIGHT){
                     val recipe = homeAdapter.recipeList[position] // Get the swiped recipe
@@ -122,15 +125,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         recipeRecipeLink
                     )
 
-//                    val snackbar = Snackbar.make(
-//                        coordinatorLayout,
-//                        "Liked: $recipeName",
-//                        Snackbar.LENGTH_LONG
-//                    )
 
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     viewModel.fetchNewRecipe()
-//                    snackbar.show()
                 }
             }
         }
@@ -165,21 +162,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recipeListRV)
 
-        lifecycleScope.launch {
-            // Show loading indicator
-            loadingIndicator.visibility = View.VISIBLE
-
-            // Fetch initial recipes
-            val initialRecipes = viewModel.fetchInitialRecipes()
-
-            // Hide loading indicator when loading is finished
-            loadingIndicator.visibility = View.GONE
-
-            // Update RecyclerView with initial recipes
-            homeAdapter = HomeAdapter(initialRecipes)
-            recipeListRV.adapter = homeAdapter
+        viewModel.error.observe(viewLifecycleOwner) { error ->
+            error?.let {
+                Log.e("HomeFragment", "Error: $error")
+                loadingErrorTV.text = getString(R.string.loading_error, error.message)
+                loadingErrorTV.visibility = View.VISIBLE
+                error.printStackTrace()
+            }
         }
 
+        lifecycleScope.launch {
+            try {
+                loadingIndicator.visibility = View.VISIBLE
+                val initialRecipes = viewModel.fetchInitialRecipes()
+                loadingIndicator.visibility = View.GONE
+
+                homeAdapter = HomeAdapter(initialRecipes)
+                recipeListRV.adapter = homeAdapter
+
+            } catch (e: Exception) {
+                loadingIndicator.visibility = View.GONE
+                loadingErrorTV.visibility = View.VISIBLE
+                loadingErrorTV.text = getString(R.string.loading_error)
+            }
+        }
     }
 
     private fun hideRecipeList() {
