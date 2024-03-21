@@ -1,47 +1,31 @@
 package edu.oregonstate.cs492.finalProject.ui
 
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.snackbar.Snackbar
 import edu.oregonstate.cs492.finalProject.R
-import edu.oregonstate.cs492.finalProject.data.RecipeInfo
-import edu.oregonstate.cs492.finalProject.data.RecipeItem
-import edu.oregonstate.cs492.finalProject.util.openWeatherEpochToDate
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
-/**
- * This fragment represents the "home" screen.
- */
+
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
     private val viewModelz: RecipeInfoViewModel by viewModels()
-
-
-    // Initialize HomeAdapter (with no recipes- it's empty for now)
-    private var homeAdapter = HomeAdapter()
 
     private lateinit var coordinatorLayout: View
     private lateinit var recipeListRV: RecyclerView
     private lateinit var loadingErrorTV: TextView
     private lateinit var loadingIndicator: ProgressBar
 
+    // Initialize HomeAdapter (with no recipes- it's empty for now)
+    private var homeAdapter = HomeAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,12 +38,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         loadingErrorTV = view.findViewById(R.id.tv_loading_error)
         loadingIndicator = view.findViewById(R.id.loading_indicator)
-
-
-        // Observe changes from the database and update the UI
-        viewModelz.savedRecipes.observe(viewLifecycleOwner) { recipes ->
-//            homeAdapter.updateRecipes(recipes)
-        }
 
         // Initialize HomeAdapter again with 5 initial recipes fetched from the API
         lifecycleScope.launch {
@@ -125,14 +103,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         recipeRecipeLink
                     )
 
-
                     val deletedRecipe = homeAdapter.deleteRecipe(position)
                     viewModel.fetchNewRecipe()
                 }
             }
         }
-
-
 
         /**
          * Ensure that when the recipe LiveData in HomeViewModel changes
@@ -162,6 +137,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recipeListRV)
 
+        // visiblity for error
         viewModel.error.observe(viewLifecycleOwner) { error ->
             error?.let {
                 Log.e("HomeFragment", "Error: $error")
@@ -171,6 +147,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+        // visiblity for launch
         lifecycleScope.launch {
             try {
                 loadingIndicator.visibility = View.VISIBLE
@@ -200,7 +177,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onResume()
         recipeListRV.visibility = View.VISIBLE
     }
-
 
 }
 

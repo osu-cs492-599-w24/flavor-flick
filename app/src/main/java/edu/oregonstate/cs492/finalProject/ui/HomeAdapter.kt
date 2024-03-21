@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import edu.oregonstate.cs492.finalProject.R
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 
+
 class HomeAdapter(
     private val initialRecipes: List<RecipeItem> = listOf()
 ) : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {

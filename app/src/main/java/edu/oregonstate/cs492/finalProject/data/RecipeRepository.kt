@@ -1,6 +1,5 @@
 package edu.oregonstate.cs492.finalProject.data
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

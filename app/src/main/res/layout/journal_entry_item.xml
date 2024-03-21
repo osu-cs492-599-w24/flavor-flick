@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,8 +21,7 @@
             android:layout_alignParentTop="true"
             android:backgroundTint="#40FFFFFF"
             android:padding="2dp"
-            android:src="@drawable/ic_close"
-            android:title="Delete" />
+            android:src="@drawable/ic_close" />
 
         <TextView
             android:id="@+id/title_tv"
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@id/delete_button"
             android:layout_toLeftOf="@id/delete_button"
-            android:text="Journal Entry Title"
+            android:text="@string/journal_title"
             android:textSize="18sp"
             android:textStyle="bold"
             android:paddingBottom="8dp" />
@@ -39,7 +39,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/title_tv"
-            android:text="Journal Entry Content"
             android:textSize="16sp" />
     </RelativeLayout>
 

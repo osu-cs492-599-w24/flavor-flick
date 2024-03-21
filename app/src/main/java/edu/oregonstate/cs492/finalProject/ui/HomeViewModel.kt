@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import edu.oregonstate.cs492.finalProject.data.RecipeInfo
 import edu.oregonstate.cs492.finalProject.data.RecipeRepository
 import edu.oregonstate.cs492.finalProject.data.RecipeItem
 import edu.oregonstate.cs492.finalProject.data.RecipeService

@@ -8,7 +8,6 @@ import android.widget.Button
 import androidx.fragment.app.viewModels
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import edu.oregonstate.cs492.finalProject.R
