@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
@@ -38,6 +39,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var coordinatorLayout: View
     private lateinit var recipeListRV: RecyclerView
+    private lateinit var loadingIndicator: ProgressBar
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,6 +50,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recipeListRV = view.findViewById(R.id.rv_recipe_list)
         recipeListRV.layoutManager = LinearLayoutManager(requireContext())
         recipeListRV.adapter = homeAdapter
+
+        loadingIndicator = view.findViewById(R.id.loading_indicator)
+
 
         // Observe changes from the database and update the UI
         viewModelz.savedRecipes.observe(viewLifecycleOwner) { recipes ->
@@ -158,6 +164,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //        )
 
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(recipeListRV)
+
+        lifecycleScope.launch {
+            // Show loading indicator
+            loadingIndicator.visibility = View.VISIBLE
+
+            // Fetch initial recipes
+            val initialRecipes = viewModel.fetchInitialRecipes()
+
+            // Hide loading indicator when loading is finished
+            loadingIndicator.visibility = View.GONE
+
+            // Update RecyclerView with initial recipes
+            homeAdapter = HomeAdapter(initialRecipes)
+            recipeListRV.adapter = homeAdapter
+        }
+
     }
+
+    private fun hideRecipeList() {
+        recipeListRV.visibility = View.GONE
+    }
+    override fun onPause() {
+        super.onPause()
+        hideRecipeList()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recipeListRV.visibility = View.VISIBLE
+    }
+
+
 }
 
