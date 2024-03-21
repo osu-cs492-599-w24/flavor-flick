@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -19,6 +20,8 @@ import kotlinx.coroutines.launch
 class ViewEntryFragment : Fragment(R.layout.fragment_journal) {
     private lateinit var addButton: Button
     private lateinit var journalAdapter: JournalAdapter
+    private lateinit var noEntriesTextView: TextView
+
     private val viewModel: JournalViewModel by viewModels()
 
     private lateinit var journalEntriesRV: RecyclerView
@@ -32,11 +35,21 @@ class ViewEntryFragment : Fragment(R.layout.fragment_journal) {
         journalEntriesRV.layoutManager = LinearLayoutManager(requireContext())
         journalEntriesRV.setHasFixedSize(true)
         journalEntriesRV.adapter = journalAdapter
+        noEntriesTextView = view.findViewById<TextView>(R.id.no_entries_text_view) ?: TextView(requireContext())
 
         viewModel.getAllEntries().observe(viewLifecycleOwner) { journalEntries: List<JournalEntry> ->
             // gets most recent entry first then displays it
             val reversedEntries = journalEntries.reversed()
             journalAdapter.updateEntries(reversedEntries)
+
+            journalAdapter.updateEntries(reversedEntries)
+
+            // Show "no journal entries" message if the list is empty
+            if (reversedEntries.isEmpty()) {
+                noEntriesTextView.visibility = View.VISIBLE
+            } else {
+                noEntriesTextView.visibility = View.GONE
+            }
         }
 
         // if clicked, brings you to separate page to add entry
