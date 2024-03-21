@@ -1,5 +1,6 @@
 package edu.oregonstate.cs492.finalProject.ui
 
+import android.content.res.Configuration
 import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.LayoutInflater
@@ -33,10 +34,16 @@ class HomeAdapter(
 
     override fun getItemCount() = recipeList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.recipe_list_item, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        // Inflate the appropriate layout based on the orientation
+        val layoutResId = if (parent.context.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            R.layout.recipe_list_item_landscape
+        } else {
+            R.layout.recipe_list_item_portrait
+        }
+        val itemView = layoutInflater.inflate(layoutResId, parent, false)
+        return ViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: HomeAdapter.ViewHolder, position: Int) {

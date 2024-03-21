@@ -44,6 +44,18 @@ class HomeViewModel : ViewModel() {
      */
     val error: LiveData<Throwable?> = _error
 
+    /*
+     * The current loading state is stored in this private property.  This loading state is exposed
+     * to the outside world in immutable form via the public `loading` property below.
+     */
+    private val _loading = MutableLiveData<Boolean>(false)
+
+    /**
+     * This property indicates the current loading state of an API query.  It is `true` if an
+     * API query is currently being executed or `false` otherwise.
+     */
+    val loading: LiveData<Boolean> = _loading
+
     /**
      * This method triggers a new call to fetch a random recipe from the API.
      * It updates the public properties of this ViewModel class to reflect the current status
@@ -88,17 +100,21 @@ class HomeViewModel : ViewModel() {
         repeat(5) {
             try {
                 val result = repository.getRandomRecipe()
+                _error.value = result.exceptionOrNull()
+
                 if (result.isSuccess) {
                     result.getOrNull()?.let { recipe ->
                         recipes.add(recipe)
                     }
                 } else {
-                    Log.e("HomeViewModel", "Error fetching recipe: ${result.exceptionOrNull()}")
+                    Log.e ("HomeViewModel", "Error fetching recipe: ${result.exceptionOrNull()}")
                 }
             } catch (e: Exception) {
                 Log.e("HomeViewModel", "Error fetching recipe", e)
             }
         }
+
+
         return recipes
     }
 
