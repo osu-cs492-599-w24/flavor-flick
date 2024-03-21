@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="600dp"
+            android:layout_height="180dp"
+            android:layout_margin="24dp">
+
+            <ImageView
+                android:id="@+id/tv_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_image"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+            <!-- ChatGPT assisted with finding out autoLink-->
+            <TextView
+                android:id="@+id/tv_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_name"
+                android:autoLink="web" />
+
+            <TextView
+                android:id="@+id/tv_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_category"
+                android:autoLink="web" />
+
+
+            <TextView
+                android:id="@+id/tv_videoLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_region"
+                android:autoLink="none" />
+
+
+            <TextView
+                android:id="@+id/tv_recipeLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/tv_videoLink"
+                android:autoLink="none" />
+
+            <!-- x icon -->
+            <ImageView
+                android:id="@+id/imageViewCross"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_cross"
+                app:tint="@color/cross"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="13dp"
+                android:layout_marginBottom="2dp" />
+
+            <!-- <3 icon -->
+            <ImageView
+                android:id="@+id/imageViewHeart"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/ic_heart"
+                app:tint="@color/cross"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="13dp"
+                android:layout_marginBottom="2dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
